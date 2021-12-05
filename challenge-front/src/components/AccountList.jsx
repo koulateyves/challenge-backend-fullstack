@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function AccountList() {
-  return (
-    <div>
-      <h1>Account List</h1>
 
-      <br />
+    const [appState, setAppState] = useState(
+        {
+            listAccounts : null,
+            roundedValue : null,
+            loading : true
+        }
+    ) ;
+
+    useEffect(() => {
+      // GET request using axios inside useEffect React hook
+      axios.get('http://localhost:8080/accounts/all')
+          .then(response => setAppState({listAccounts : response.data.accounts[0], roundedValue : response.data.roundedValue, loading : false}))
+          .catch( err => console.log(err))
+    }, []);
+
+
+    return (
+
+        <div>
+            <h1>Account List</h1>
+      <br /> <label> Global BalanceAccount : {appState.roundedValue}</label>
 
       <table className="table table-bordered">
         <thead>
@@ -18,27 +36,18 @@ export default function AccountList() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th>1000001</th>
-            <td>Compte Courant</td>
-            <td>350.99</td>
-            <td>EUR</td>
-            <td>checking</td>
-          </tr>
-          <tr>
-            <th>1000002</th>
-            <td>Livret A</td>
-            <td>1200</td>
-            <td>EUR</td>
-            <td>saving</td>
-          </tr>
-          <tr>
-            <th>1000003</th>
-            <td>Pret Etudiant</td>
-            <td>15000</td>
-            <td>EUR</td>
-            <td>loan</td>
-          </tr>
+
+        {appState.listAccounts.map((data, index) => {
+            return (
+                <tr key={index}>
+                    <td>{data.id}</td>
+                    <td>{data.name}</td>
+                    <td>{data.balance}</td>
+                    <td>{data.type}</td>
+                    <td>{data.currency_code}</td>
+                </tr>
+            )
+        })}
         </tbody>
       </table>
     </div>

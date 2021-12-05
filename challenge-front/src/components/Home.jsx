@@ -1,5 +1,5 @@
 import React from 'react';
-import AccountList from './AccountList';
+
 
 export default function Home() {
   return (
@@ -18,8 +18,6 @@ export default function Home() {
       </p>
 
       <br />
-
-      <AccountList />
     </div>
   );
 }

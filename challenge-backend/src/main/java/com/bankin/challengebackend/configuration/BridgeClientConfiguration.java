@@ -10,6 +10,9 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import com.bankin.challengebackend.clients.BridgeClient;
 
+import javax.net.ssl.*;
+import java.security.cert.CertificateException;
+
 @Configuration
 public class BridgeClientConfiguration {
 

@@ -1,5 +1,8 @@
+
 bridge.api:
   base-url: https://sync.bankin.com
   version: 2018-06-15
-  client-id:
-  client-secret:
+  client-id: 775683bc70d94beaa8044c81b2f16006
+  client-secret: sMgdYUzUPpo1DxbR67qP2ZbuTmU7H9gikvWPigDnQro9fk0PsRcb4EvI0iRheAJr
+server:
+  port: 8080

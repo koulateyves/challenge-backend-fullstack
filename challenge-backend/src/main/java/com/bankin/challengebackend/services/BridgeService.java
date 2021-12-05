@@ -22,6 +22,8 @@ public class BridgeService {
     // these are hardcoded for simplicity's sake
     private static final String USER_EMAIL = "user1@mail.com";
     private static final String USER_PASSWORD = "a!Strongp#assword1";
+    public static final String BEARER = "Bearer ";
+    public static final String LIMIT = "10";
 
     @Autowired
     private BridgeClient bridgeClient;
@@ -45,9 +47,12 @@ public class BridgeService {
         return Optional.empty();
     }
 
-    public GetAccountResponse doSomething() throws IOException {
+    public GetAccountResponse getUserAccount() throws IOException {
         var authorization = authenticateUser(USER_EMAIL, USER_PASSWORD);
-        return bridgeClient.getAccounts(version, "Bearer ", "myvalue").execute().body();
+        if(authorization.isPresent()){
+            return bridgeClient.getAccounts(version, BEARER +authorization.get().accessToken, LIMIT, clientId, clientSecret).execute().body();
+        }
+        return new GetAccountResponse();
     }
 
 }
