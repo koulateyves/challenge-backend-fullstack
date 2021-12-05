@@ -1,4 +1,4 @@
-package com.bankin.challengebackend.clients;
+package com.bankin.challengebackend.model;
 
 import java.util.List;
 

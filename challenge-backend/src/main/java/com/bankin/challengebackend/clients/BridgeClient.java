@@ -1,6 +1,8 @@
 package com.bankin.challengebackend.clients;
 
 
+import com.bankin.challengebackend.model.AuthenticateResponse;
+import com.bankin.challengebackend.model.GetAccountResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;

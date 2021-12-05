@@ -4,15 +4,15 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-import com.bankin.challengebackend.clients.Account;
-import com.bankin.challengebackend.clients.GetAccountResponse;
+import com.bankin.challengebackend.model.Account;
+import com.bankin.challengebackend.model.GetAccountResponse;
+import com.bankin.challengebackend.model.Response;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.*;
 
-import com.bankin.challengebackend.services.BridgeService;
+import com.bankin.challengebackend.services.ipml.BridgeServiceImpl;
 
 /**
  * AccountController.myEndpoint is called when requesting GET /mycontroller/myroute
@@ -26,8 +26,13 @@ import com.bankin.challengebackend.services.BridgeService;
 public class AccountController {
 
     @Autowired
-    private BridgeService bridgeService;
+    private BridgeServiceImpl bridgeService;
 
+    /**
+     * Ce endPoint devrait prendre le token en parametre de la requette
+     * @return
+     * @throws IOException
+     */
     @CrossOrigin
     @GetMapping("/all")
     public Response getAllAccount() throws IOException {
@@ -39,6 +44,6 @@ public class AccountController {
     }
 
     private Double getBalance(List<Account> accountList){
-        return accountList.stream().mapToDouble(value -> value.balance).sum();
+        return CollectionUtils.isEmpty(accountList)? null : accountList.stream().mapToDouble(value -> value.balance).sum();
     }
 }
